@@ -1,0 +1,12 @@
+import: '#include <<package>>'
+indent: |
+  <main>{
+    <statements>
+  <tab>}
+elif: else if
+define: '<tab>#define <var> <replace>'
+match: |
+  case<arg>:<statements><tab>break;
+autobracket: <before>(<arg>){
+outcolon: <line>;
+vartype: <type> <var>

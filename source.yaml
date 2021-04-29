@@ -1,0 +1,55 @@
+import:
+  regex: import (.+)$
+  tokens: [package]
+  doc: To include(import package)
+
+vartype:
+  regex: (\w+):(\w+)
+  tokens: [var,type]
+  doc: Declare var name(var:type)
+
+indent:
+  regex: ^(<xcase>):<ind>3<ent>
+  tokens: [main,statements,tab]
+  doc: Indentation instead of curly brackets
+  statements:
+    call: [indent]
+    eachline: <line>; # Auto semicolon
+    replace: # Unwanted semicolon
+      - [':;',':']
+      - ['{;','{']
+      - ['};','}']
+      - [;;,;]
+
+outcolon:
+  regex: (extern <xsemicolon>+)$
+  tokens: [line] 
+  doc: Auto semicolon outside indented statements
+
+match:
+  regex: \bmatch\b(.+):<ind>3<ent>
+  tokens: [arg,statements,tab]
+  doc: For auto break in switch-case
+
+define:
+  regex: <tab>(\w+)\s*\bas\b\s*(.+)$
+  tokens: [tab,var,replace]
+  doc: 'For #define preprocessor directive(name as content)'
+
+elif:
+  regex: \belif\b
+  tokens: [main]
+  doc: Else if statement
+
+autobracket:
+  regex: '((?:switch|if|else if)) (.+){'
+  tokens: [before,arg]
+  doc: Auto bracket for arguments in if,switch(if arg)
+
+settings:
+  variables:
+    case: '(?:case|match|default).+:' # Match case and match statement
+    xcase: (?:(?!<case>).)+ # Exclude case in switch-case and match statement
+    xsemicolon: (?:(?!;).) # Excude semicolon
+  author: name
+  lang: C
