@@ -33,7 +33,7 @@ match:
 
 define:
   regex: <tab>(\w+)\s*\bas\b\s*(.+)$
-  tokens: [tab,var,replace]
+  tokens: [tab,replace,var]
   doc: 'For #define preprocessor directive(name as content)'
 
 elif:
@@ -45,7 +45,11 @@ autobracket:
   regex: '((?:switch|if|else if)) (.+){'
   tokens: [before,arg]
   doc: Auto bracket for arguments in if,switch(if arg)
-
+  arg:
+    replace:
+      - [\bor\b,'|']
+      - [\band\b, '&&']
+      - [\bnot\b\s*,'!']
 settings:
   variables:
     case: '(?:case|match|default).+:' # Match case and match statement

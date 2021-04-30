@@ -3,8 +3,8 @@ Customized C Syntax
 
 ```C++
 import stdio.h
-True as 1
-False as 0
+1 as True
+0 as False
 
 void main():
 	const grade:char = 'b';
